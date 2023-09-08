@@ -23,19 +23,33 @@ const Calculator = () => {
   const [resultado, setResultado] = useState(0);
 
   const handleChangeValor1 = (e) => {
-    const regex = /^[0-9\b]+$/;
-    const value = parseInt(e.target.value);
-    if (value === "" || regex.test(value)) {
-      setValor1(value);
+    const input = e.target.value;
+    const regex = /^([0-9]{1,})?(\.)?([0-9]{1,})?$/;
+
+    if (input.match(regex)) {
+      setValor1(input);
     }
   };
 
+  const handleFloatValor1 = () => {
+    //quando perde o foco
+    // The conditional prevents parseFloat(null) = NaN (when the user deletes the input)
+    setValor1(parseFloat(valor1) || "");
+  };
+
   const handleChangeValor2 = (e) => {
-    const regex = /^[0-9\b]+$/;
-    const value = parseInt(e.target.value);
-    if (value === "" || regex.test(value)) {
-      setValor2(value);
+    const input = e.target.value;
+    const regex = /^([0-9]{1,})?(\.)?([0-9]{1,})?$/;
+
+    if (input.match(regex)) {
+      setValor2(input);
     }
+  };
+
+  const handleFloatValor2 = () => {
+    //quando perde o foco
+    // The conditional prevents parseFloat(null) = NaN (when the user deletes the input)
+    setValor2(parseFloat(valor1) || "");
   };
 
   return (
@@ -52,10 +66,9 @@ const Calculator = () => {
               className={styles.input}
               type="text"
               id="num1"
-              // onChange={(e) => setValor1(parseInt(e.target.value))}
               onChange={(e) => handleChangeValor1(e)}
+              onBlur={handleFloatValor1}
               value={valor1}
-              valueAsNumber={true}
             />
           </div>
           <div className={styles.grid_item.item2}>
@@ -63,10 +76,9 @@ const Calculator = () => {
               className={styles.input}
               type="text"
               id="num2"
-              // onChange={(e) => setValor2(parseInt(e.target.value))}
               onChange={(e) => handleChangeValor2(e)}
+              onBlur={handleFloatValor2}
               value={valor2}
-              valueAsNumber={true}
             />
           </div>
 
