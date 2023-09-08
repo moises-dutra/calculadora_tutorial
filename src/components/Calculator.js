@@ -49,7 +49,7 @@ const Calculator = () => {
   const handleFloatValor2 = () => {
     //quando perde o foco
     // The conditional prevents parseFloat(null) = NaN (when the user deletes the input)
-    setValor2(parseFloat(valor1) || "");
+    setValor2(parseFloat(valor2) || "");
   };
 
   return (
